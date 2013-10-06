@@ -1,0 +1,64 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	font-family: arial, helvetica, sans-serif;
+}
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+.hide {
+	display: none;
+}
+.positive {
+	color: green;
+	font-weight: bold;
+}
+.error {
+	color: red;
+	font-weight: bold;
+}
+a {
+	text-decoration: none;
+	background: #ff9900;
+	padding: 5px 10px;
+	color: #000;
+}
+a:hover {
+	text-decoration: underline;
+	background: #ff6600;
+}
+.heading {
+	background: #ffcc66;
+	padding: 5px 0;
+}
+hr {
+	margin: 0;
+	color: #ff6633;
+}
+.main {
+	width: 1000px;
+	margin: 0 auto;
+}
+.content {
+	padding: 10px;
+	background: ;
+}
+.row {
+	padding-bottom: 10px;
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.btn {
+	padding: 5px 10px;
+	background: #33cc00;
+	border: none;
+}
+.primesTotal span, .score span {
+	font-weight: bold;
+}
