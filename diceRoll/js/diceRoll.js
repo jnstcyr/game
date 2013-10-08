@@ -1,11 +1,17 @@
 $(document).on('click', '#toggleRules', function(){
 	$('.rules').toggleClass('hide');
 });
-var getRoll = function () {
-	var notPrime = [], primeNumbers = [];
+var rollDice = function(){
 	var dice = document.getElementById('dice').value,
 		sides = document.getElementById('sides').value,
-		rolls = [],
+		rolls = getRoll(dice, sides),
+		scores = sortResults(rolls.rolls, rolls.notPrime, rolls.primeNumbers);
+
+		displayResults(rolls.rolls, rolls.primeNumbers, scores.score, scores.bonus, scores.penalty, scores.finalScore);
+};
+var getRoll = function (dice, sides) {
+	var notPrime = [], primeNumbers = [], rolls = [];
+	var Rolls = {},
 		min = 1;
 
 		for(var d=0; d < dice; d++){
@@ -19,7 +25,10 @@ var getRoll = function () {
 				notPrime.push(rolls[i]);
 			}
 		}
-		sortResults(rolls, notPrime, primeNumbers);
+		Rolls.rolls = rolls,
+		Rolls.notPrime = notPrime,
+		Rolls.primeNumbers = primeNumbers;
+		return Rolls;
 }
 
 var isPrime = function(i){
@@ -27,7 +36,7 @@ var isPrime = function(i){
     every(function (x, y) { return (y < 2) || (i % y !== 0) });
 }
 var sortResults = function (rolls, notPrime, primeNumbers){
-	var score = 0, bonus = 0, penalty = 0, finalScore = 0,
+	var score = 0, bonus = 0, penalty = 0, finalScore = 0, scores = {},
 		rollTotal = _(rolls).reduce(
             function( memo, x) { return memo + x }, 0),
 		primeTotal =  _(primeNumbers).reduce(
@@ -37,9 +46,15 @@ var sortResults = function (rolls, notPrime, primeNumbers){
 	if(isPrime(rollTotal)){
 		bonus = rollTotal;
 	}
-	console.log(primeTotal);
+	
 	finalScore = ((primeTotal + bonus) - penalty);
-	displayResults(rolls, primeNumbers, primeTotal, bonus, penalty, finalScore)
+
+	scores.score = primeTotal, 
+	scores.bonus = bonus,
+	scores.penalty = penalty,
+	scores.finalScore = finalScore;
+
+	return scores;
 }
 var totalPenalty = function(notPrime){
 	var thisPenalty = 0;
